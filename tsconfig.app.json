@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+
+    /* Bundler mode */
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+
+    /* Linting */
+    "strict": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": "./src",
+    "paths": {
+      "~root/*": ["./*"],
+      "~constants/*": ["./constants/*"],
+      "~lib/*": ["./lib/*"],
+      "~hooks/*": ["./hooks/*"],
+      "~assets/*": ["./assets/*"],
+      "~providers/*": ["./providers/*"],
+      "~features/*": ["./features/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.d.ts",
+    ".eslintrc.js",
+    "lint-staged.config.cjs",
+    "tailwind.config.cjs",
+    "src/**/*"
+  ],
+  "exclude": ["node_modules", "tailwind.config.js", "vite.config.ts", "postcss.config.js", ".eslintrc.js"]
+}
