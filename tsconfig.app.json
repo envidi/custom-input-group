@@ -44,7 +44,8 @@
     ".eslintrc.js",
     "lint-staged.config.cjs",
     "tailwind.config.cjs",
-    "src/**/*"
+    "src/**/*",
+    "commitlint.config.cjs"
   ],
   "exclude": ["node_modules", "tailwind.config.js", "vite.config.ts", "postcss.config.js", ".eslintrc.js"]
 }
