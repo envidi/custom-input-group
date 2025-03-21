@@ -16,13 +16,12 @@ interface MEInputGroupProps {
   formHandler: UseFormReturn<FieldValues, any> | UseFormReturn<any, any>;
   formStructure: FormInputGenericProps[];
   defaultValues?: FieldValues;
-  gridCols?: TwStyle;
+  gridCols?: string;
   spacingX?: TwStyle;
   spacingY?: TwStyle;
   invisible?: boolean;
   disableInputFields?: boolean;
   rows?: string;
-  height?: string;
 }
 
 export type InputRenderProps = FormInputGenericProps & {
@@ -59,49 +58,16 @@ export const MEInputGroup: React.FC<MEInputGroupProps> = ({
   defaultValues,
   invisible,
   disableInputFields,
-  gridCols = tw`grid-cols-12`,
+  gridCols,
   spacingX = tw`gap-x-2`,
   spacingY = tw`gap-y-1.5`,
   rows = 'grid-rows-[repeat(3,1fr)]',
-  height = 'h-[192px]',
 }) => {
   return (
-    <div
-      // css={[
-      //   tw`grid`,
-      //   gridCols,
-      //   spacingX,
-      //   spacingY,
-      //   invisible && tw`invisible`,
-      //   //  tw`grid-rows-[repeat(3,1fr)]`
-      // ]}
-      className={`${rows} grid ${gridCols} `}
-    >
+    <div css={[tw`grid`, spacingX, spacingY, invisible && tw`invisible`]} className={`${rows} ${gridCols}`}>
       <FormProvider {...formHandler}>
         {formStructure.map((field, index) => (
-          // <div
-          //   key={index}
-          //   css={[
-          //     field.colSpanSm,
-          //     field.colSpanMd,
-          //     field.colSpanLg,
-          //     field.orderMd,
-          //     field.orderSm,
-          //     field.orderLg,
-          //     field.colStartMd,
-          //     field.colStartSm,
-          //     field.colStartLg,
-          //     field.rowStartMd,
-          //     field.rowStartSm,
-          //     field.rowStartLg,
-          //   ]}
-          // >
-          // <div key={index} css={[tw`${field.colSpan}`]}>
-          <div
-            key={index}
-            className={`${field.colSpan}`}
-            // css={[field.colSpanXs, field.orderXs, field.colStartXs, field.rowStartXs]}
-          >
+          <div key={index} className={`${field.colSpan}`}>
             <InputRender {...field} defaultValues={defaultValues} disabled={disableInputFields ?? field.disabled} />
           </div>
         ))}

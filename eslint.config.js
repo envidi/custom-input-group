@@ -40,7 +40,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': "off",
       "@typescript-eslint/prefer-promise-reject-errors": "off",
-      "react/react-in-jsx-scope": "on",
+      "react/react-in-jsx-scope": "off",
     },
   },
 );

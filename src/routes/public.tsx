@@ -1,10 +1,11 @@
 import { RouteObject } from 'react-router';
 import { FormPage } from '~root/components';
+import { ThemeConfig } from '~root/hooks';
 
-export const publicRoutes: RouteObject[] = [
+export const publicRoutes = (setThemeConfig: (args: ThemeConfig) => void, themeConfig: ThemeConfig): RouteObject[] => [
   {
     path: '/form',
-    element: <FormPage />,
+    element: <FormPage setThemeConfig={setThemeConfig} themeConfig={themeConfig} />,
   },
   {
     path: '/',

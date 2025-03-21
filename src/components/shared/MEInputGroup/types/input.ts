@@ -11,33 +11,22 @@ import { TwStyle } from 'twin.macro';
 
 type GenericFormInput = {
   name: string;
-  label?: React.ReactNode | string;
+  label: React.ReactNode | string;
   placeholder?: string;
   validate?: object;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue?: any;
   disabled?: boolean;
-  colSpan: TwStyle; // Css of column span of the input container
-
-  // colSpanLg: TwStyle; // Css of column span of the input container
-  // colSpanMd: TwStyle; // Css of column span of the input container
-  // colSpanSm: TwStyle; // Css of column span of the input container
-
-  // orderLg: TwStyle; // Css of column span of the input container
-  // orderMd: TwStyle; // Css of column span of the input container
-  // orderSm: TwStyle; // Css of column span of the input container
-
-  // colStartLg: TwStyle; // Css of column span of the input container
-  // colStartMd: TwStyle; // Css of column span of the input container
-  // colStartSm: TwStyle; // Css of column span of the input container
-
-  // rowStartLg: TwStyle; // Css of rowumn span of the input container
-  // rowStartMd: TwStyle; // Css of rowumn span of the input container
-  // rowStartSm: TwStyle; // Css of rowumn span of the input container
+  disabledError?: boolean;
+  // colSpan: TwStyle; // Css of column span of the input container
+  colSpan?: string; // Css of column span of the input container
+  height?: number;
 
   loading?: boolean;
-  containerCss?: TwStyle;
-  labelCss?: TwStyle;
+  // containerCss?: TwStyle;
+  containerCss?: string;
+  // labelCss?: TwStyle;
+  labelCss?: string;
   rows?: number;
   tagLabel?: string;
 };

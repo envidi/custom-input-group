@@ -6,38 +6,83 @@ import { CustomTabPanel } from '../CustomTabPanel';
 import { ListInput, Styles } from './components';
 import { ContainerStyle } from '../../types';
 import 'twin.macro';
-import { DialogEditConfigInput } from '../DialogEditConfigInput';
+import { ThemeConfig } from '~root/hooks';
+import { DialogEditConfigInputs } from '../DialogEditConfigInputs';
+import { useEventListener } from '../../hooks';
 
 interface Props {
   handleApply: () => void;
   containerStyle: ContainerStyle;
   handleContainerStyle: (value: string | number, gapType: keyof ContainerStyle) => void;
+  handleEditFormInput: (config: ThemeConfig) => void;
+  themeConfig: ThemeConfig;
+  hasPendingChanges: boolean;
+  saveToLocalStorage: () => void;
+  isConfirmDialogOpen: boolean;
+  handleToggleConfirmDialog: () => void;
+  handleConfirmClear: () => void;
+  handleSelectThemeConfig: (args: ThemeConfig) => void;
 }
 
-export const SideBar = ({ handleApply, containerStyle, handleContainerStyle }: Props) => {
+export const SideBar = ({
+  handleApply,
+  containerStyle,
+  handleContainerStyle,
+  handleEditFormInput,
+  themeConfig,
+  hasPendingChanges,
+  saveToLocalStorage,
+  isConfirmDialogOpen,
+  handleToggleConfirmDialog,
+  handleConfirmClear,
+  handleSelectThemeConfig,
+}: Props) => {
   const [value, setValue] = React.useState(0);
+  const [isOpen, setIsOpen] = React.useState(false);
 
-  const handleChange = (_: any, newValue: number) => {
+  useEventListener('modal-event', ({ action }) => {
+    switch (action) {
+      case 'open':
+        setIsOpen(true);
+        break;
+      case 'close':
+        setIsOpen(false);
+        break;
+    }
+  });
+
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   return (
-    <div tw="w-[200px]  border-r-[.0625rem] border-l-0 border-t-0 border-r-[black]/20 h-full bg-slate-100 border-solid flex px-3 flex-col">
+    <div tw="w-[200px] border-r-[.0625rem] border-l-0 border-t-0 border-r-[black]/20 h-full bg-slate-100 border-solid flex px-3 flex-col">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Inputs" {...a11yProps(0)} />
           <Tab label="Option" {...a11yProps(2)} />
-          {/* <Tab label="Style" {...a11yProps(1)} /> */}
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <ListInput handleApply={handleApply} />
+        <ListInput
+          handleApply={handleApply}
+          hasPendingChanges={hasPendingChanges}
+          saveToLocalStorage={saveToLocalStorage}
+          isConfirmDialogOpen={isConfirmDialogOpen}
+          handleToggleConfirmDialog={handleToggleConfirmDialog}
+          handleConfirmClear={handleConfirmClear}
+          handleSelectThemeConfig={handleSelectThemeConfig}
+          themeConfig={themeConfig}
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Styles containerStyle={containerStyle} handleContainerStyle={handleContainerStyle} />
       </CustomTabPanel>
-      {/* <CustomTabPanel value={value} index={2}>
-        Select input
-      </CustomTabPanel> */}
+      <DialogEditConfigInputs
+        open={isOpen}
+        setOpen={setIsOpen}
+        handleEditFormInput={handleEditFormInput}
+        themeConfig={themeConfig}
+      />
     </div>
   );
 };

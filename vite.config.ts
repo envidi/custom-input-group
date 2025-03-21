@@ -10,6 +10,13 @@ export default defineConfig({
       target: 'es2020',
     },
   },
+  server: {
+    host: true,
+    watch: {
+      usePolling: true,
+      interval: 500,
+    },
+  },
   esbuild: {
     logOverride: { 'this-is-undefined-in-esm': 'silent' },
   },

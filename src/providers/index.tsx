@@ -8,14 +8,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { localStore } from '~root/stores';
 import 'jotai-devtools/styles.css';
-import { muiTheme } from '~root/styles/mui.config';
-import { ThemeProvider } from '@mui/material';
+import { Theme, ThemeProvider } from '@mui/material';
 
 interface Props {
   children: React.ReactNode;
+  muiTheme: Theme;
 }
 
-const Providers: React.FC<Props> = ({ children }) => {
+const Providers: React.FC<Props> = ({ children, muiTheme }) => {
   const queryClient: QueryClient = new QueryClient();
   return (
     <>

@@ -22,6 +22,8 @@ export const METextField: FC<FormInputTextField> = (props) => {
     onFocus,
     onBlur,
     clearable,
+    disabledError,
+    height,
     ...rest
   } = props;
   /** Define the 'focused' state to handle the focusing of the input field.
@@ -69,9 +71,13 @@ export const METextField: FC<FormInputTextField> = (props) => {
       control={control}
       defaultValue={defaultValue || ''}
       render={({ field: { ...controlProps } }) => (
-        <div css={[tw`flex flex-col gap-2`, containerCss]}>
+        <div className={`flex flex-col gap-2 h-full ${containerCss}`}>
           <div tw="flex justify-between items-end">
-            {label && <label css={[labelCss]}>{label}</label>}
+            {label && (
+              <Typography sx={{ lineHeight: '0' }}>
+                <label className={labelCss}>{label}</label>
+              </Typography>
+            )}
             {maxLength && (
               <Typography variant="caption" color="textSecondary">
                 {value?.length || 0}/{maxLength}
@@ -124,6 +130,7 @@ export const METextField: FC<FormInputTextField> = (props) => {
                   )
                 ),
             }}
+            style={{ height: '100%' }}
             onChange={onChange}
             onPaste={handlePaste}
             onFocus={(e) => {
@@ -134,7 +141,7 @@ export const METextField: FC<FormInputTextField> = (props) => {
               setFocused(false);
               if (onBlur) onBlur(e);
             }}
-            error={!!error}
+            error={!disabledError && !!error}
             helperText={error?.message as string}
             tw="[& input]:(text-sm leading-4 font-normal px-3) bg-[white]"
             className={value && !focused && 'hasValue'}
@@ -148,6 +155,9 @@ export const METextField: FC<FormInputTextField> = (props) => {
                 },
                 '& .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline': tw`border-[black] border`,
                 '& .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline': tw`border-[black] border`,
+                '& .MuiInputBase-root': {
+                  height: height ? height + 'px' : '100%',
+                },
               },
               props.sx,
             )}

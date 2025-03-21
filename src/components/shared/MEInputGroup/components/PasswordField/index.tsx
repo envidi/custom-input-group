@@ -6,12 +6,13 @@ import { IconButton, InputAdornment, TextField } from '@mui/material';
 import 'twin.macro';
 import VisibilityOff from '~root/components/shared/MEInputGroup/assets/eye-off.svg?react';
 import Visibility from '~root/components/shared/MEInputGroup/assets/eye.svg?react';
-import { merge } from 'lodash';
-import tw from 'twin.macro';
+import merge from 'lodash/merge';
+import { twMerge } from 'tailwind-merge';
+import { Typography } from '@mui/material';
 
 export const MEPasswordField: FC<FormInputTextField> = (props) => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const { name, defaultValue, label, ...rest } = props;
+  const { name, defaultValue, label, labelCss, containerCss, disabledError, height, ...rest } = props;
   const {
     setValue,
     control,
@@ -42,8 +43,12 @@ export const MEPasswordField: FC<FormInputTextField> = (props) => {
       control={control}
       defaultValue={defaultValue || ''}
       render={({ field: { ...controlProps } }) => (
-        <div tw="flex flex-col gap-2 h-full">
-          {label && <label>{label}</label>}
+        <div className={twMerge('flex flex-col gap-2 h-full', containerCss)}>
+          {label && (
+            <Typography sx={{ lineHeight: '0' }}>
+              <label className={labelCss}>{label}</label>
+            </Typography>
+          )}
           <TextField
             {...rest}
             {...controlProps}
@@ -63,13 +68,13 @@ export const MEPasswordField: FC<FormInputTextField> = (props) => {
                 </InputAdornment>
               ),
             }}
+            className=" bg-[white] [&.MuiInputBase-root]:(rounded-0)"
             style={{ height: '100%' }}
             sx={merge(
               {},
               {
                 '& .MuiInputBase-root': {
-                  ...tw`h-full`,
-                  // '& .MuiInputBase-input': {},
+                  height: height ? height + 'px' : '100%',
                 },
               },
               props.sx,
@@ -77,7 +82,7 @@ export const MEPasswordField: FC<FormInputTextField> = (props) => {
             type={showPassword ? 'text' : 'password'}
             onChange={onChange}
             error={!!error}
-            helperText={error?.message as string}
+            helperText={!disabledError && (error?.message as string)}
           />
         </div>
       )}

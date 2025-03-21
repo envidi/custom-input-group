@@ -1,1 +1,1 @@
-export * from './useResize';
+export * from './useEventListener';
